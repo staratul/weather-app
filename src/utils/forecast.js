@@ -11,13 +11,17 @@ const forecast = (address, callback) => {
         } else if (body.error || body.forecast.forecastday.length === 0) {
             callback('Unable to find location', undefined);
         } else {
+            console.log(body);
             callback(undefined, {
                 temperature_celsius: body.current.temp_c,
                 temperature_fahrenheit: body.current.temp_f,
                 sunrise: body.forecast.forecastday[0].astro.sunrise,
                 sunset: body.forecast.forecastday[0].astro.sunset,
                 moonrise: body.forecast.forecastday[0].astro.moonrise,
-                moonset: body.forecast.forecastday[0].astro.moonset
+                moonset: body.forecast.forecastday[0].astro.moonset,
+                current_time: body.location.localtime,
+                wind_kph: body.current.wind_kph,
+                wind_dir: body.current.wind_dir
             });
         }
     });

@@ -56,18 +56,21 @@ app.get('/weather', (req, res) => {
                 error: err
             });
         } else {
-            forecast(text, (error, {temperature_celsius, temperature_fahrenheit, sunrise, sunset} = {}) => {
+            forecast(text, (error, data = {}) => {
                 if(err) {
                     return res.send({
                         error: error
                     })
                 } else {
                     return res.send({
-                        temperature_celsius: temperature_celsius,
-                        temperature_fahrenheit: temperature_fahrenheit,
-                        sunrise: sunrise,
-                        sunset: sunset,
-                        address:address
+                        temperature_celsius: data.temperature_celsius,
+                        temperature_fahrenheit: data.temperature_fahrenheit,
+                        sunrise: data.sunrise,
+                        sunset: data.sunset,
+                        address: address,
+                        current_time: data.current_time,
+                        wind_kph: data.wind_kph,
+                        wind_dir: data.wind_dir          
                     })
                 }
             })
